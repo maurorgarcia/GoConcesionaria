@@ -1,0 +1,165 @@
+@import "tailwindcss";
+
+/* Tokens de diseño. Los lee también /remotion/tokens.ts (var(--color-*)). */
+@theme static {
+  --color-bg: #0a0a0a;
+  --color-surface: #111111;
+  --color-surface-2: #151515;
+  --color-line: #2b2b2b;
+  --color-fg: #f5f5f5;
+  --color-muted: #b0b0b0;
+  --color-accent: #ccff00;
+  --color-ok: #ccff00;
+  --color-bubble: #1c1c1c;
+  --color-bubble-ai: #161b08;
+  --color-chip: #2b2b2b;
+  --font-display: var(--font-geist), system-ui, sans-serif;
+  --font-body: var(--font-geist), system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 24px;
+  background: var(--color-bg);
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  letter-spacing: -0.035em;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* FAQ */
+summary { list-style: none; cursor: pointer; }
+summary::-webkit-details-marker { display: none; }
+details .plus { transition: transform 0.25s ease; }
+details[open] .plus { transform: rotate(45deg); }
+details[open] .faq-body { animation: faq-open 0.3s ease; }
+@keyframes faq-open {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Scroll reveal: solo si hay JS y el usuario no pidió menos movimiento */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .reveal.is-visible { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Rendimiento: las secciones fuera de pantalla no se estilan ni se pintan hasta que se acercan */
+.defer-render {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 720px;
+}
+/* Cada animación vive en su propia capa y no fuerza relayout del resto de la página */
+.stage {
+  contain: layout paint style;
+  transform: translateZ(0);
+}
+
+
+
+/* Elementos internos que entran en cascada cuando su tarjeta aparece */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .reveal .pop > * {
+    opacity: 0;
+    transform: translateY(10px) scale(0.96);
+    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition-delay: calc(var(--i, 0) * 90ms + 350ms);
+  }
+  .reveal.is-visible .pop > * { opacity: 1; transform: none; }
+  .pop > *:nth-child(1) { --i: 0; }
+  .pop > *:nth-child(2) { --i: 1; }
+  .pop > *:nth-child(3) { --i: 2; }
+  .pop > *:nth-child(4) { --i: 3; }
+  .pop > *:nth-child(5) { --i: 4; }
+  .pop > *:nth-child(6) { --i: 5; }
+}
+
+
+/* Fondos con efecto: dos resplandores de marca (lima y verde WhatsApp), distintos por sección. Estático. */
+.fx { position: relative; isolation: isolate; }
+.fx::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(55% 60% at var(--fx-x, 90%) var(--fx-y, 0%), var(--fx-c, rgba(204, 255, 0, 0.08)), transparent 70%),
+    radial-gradient(45% 50% at var(--fx-x2, 5%) var(--fx-y2, 100%), var(--fx-c2, rgba(204, 255, 0, 0.06)), transparent 70%);
+}
+.fx-a { --fx-x: 92%; --fx-y: 0%; --fx-x2: 4%; --fx-y2: 100%; }
+.fx-b { --fx-x: 6%; --fx-y: 0%; --fx-x2: 96%; --fx-y2: 100%; }
+.fx-c { --fx-x: 50%; --fx-y: 100%; --fx-c: rgba(204, 255, 0, 0.1); --fx-x2: 50%; --fx-y2: 0%; --fx-c2: rgba(204, 255, 0, 0.04); }
+.fx-hero { --fx-x: 80%; --fx-y: 25%; --fx-c: rgba(204, 255, 0, 0.12); --fx-x2: 0%; --fx-y2: 90%; --fx-c2: rgba(204, 255, 0, 0.08); }
+
+@keyframes dot { 0%, 80%, 100% { opacity: 0.25; } 40% { opacity: 1; } }
+.typing i { animation: dot 1.2s infinite; }
+.typing i:nth-child(2) { animation-delay: 0.15s; }
+.typing i:nth-child(3) { animation-delay: 0.3s; }
+@media (prefers-reduced-motion: reduce) { .typing i { animation: none; opacity: 0.7; } }
+
+/* Separación visible entre secciones: fondo alterno un punto más claro y línea superior */
+main > section + section { border-top: 1px solid rgba(245, 245, 245, 0.12); }
+main > section:nth-of-type(even) { background-color: #121212; }
+
+/* Textura de fondo por sección (solo blanco y lima, estática): cuadrícula, diagonales, puntos y anillos */
+.fx::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: var(--fx-pat, none);
+  -webkit-mask-image: var(--fx-mask, linear-gradient(to bottom, #000 0%, #000 60%, transparent 100%));
+  mask-image: var(--fx-mask, linear-gradient(to bottom, #000 0%, #000 60%, transparent 100%));
+}
+.pat-grid {
+  --fx-pat:
+    linear-gradient(to right, rgba(245, 245, 245, 0.08) 1px, transparent 1px) 0 0 / 64px 64px,
+    linear-gradient(to bottom, rgba(245, 245, 245, 0.08) 1px, transparent 1px) 0 0 / 64px 64px;
+}
+.pat-diag {
+  --fx-pat: repeating-linear-gradient(135deg, rgba(245, 245, 245, 0.07) 0 1px, transparent 1px 22px);
+  --fx-mask: linear-gradient(100deg, #000 0%, transparent 70%);
+}
+.pat-dots {
+  --fx-pat: radial-gradient(rgba(204, 255, 0, 0.22) 1.2px, transparent 1.6px) 0 0 / 26px 26px;
+  --fx-mask: radial-gradient(70% 90% at 100% 0%, #000 0%, transparent 75%);
+}
+.pat-rings {
+  --fx-pat: repeating-radial-gradient(circle at 100% 100%, rgba(245, 245, 245, 0.09) 0 1px, transparent 1px 46px);
+  --fx-mask: radial-gradient(80% 100% at 100% 100%, #000 0%, transparent 80%);
+}
+.pat-rings-l {
+  --fx-pat: repeating-radial-gradient(circle at 0% 0%, rgba(204, 255, 0, 0.1) 0 1px, transparent 1px 46px);
+  --fx-mask: radial-gradient(80% 100% at 0% 0%, #000 0%, transparent 80%);
+}
