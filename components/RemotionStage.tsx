@@ -63,6 +63,20 @@ export function RemotionStage({
   const [inView, setInView] = useState(false);
   const [idle, setIdle] = useState(false);
   const [ready, setReady] = useState(false);
+  const box = useRef<HTMLDivElement>(null);
+  // Escala del póster = ancho disponible / ancho de la composición. Se mide en JS: el escalado de
+  // <foreignObject> dentro de un <svg> falla en Safari de iPhone y mostraba el póster a tamaño real.
+  const [scale, setScale] = useState<number | null>(null);
+
+  useEffect(() => {
+    const el = box.current;
+    if (!el) return;
+    const measure = () => setScale(el.clientWidth / width);
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [width]);
 
   // El Player no compite con el primer render: espera a que cargue la página y haya tiempo libre.
   useEffect(() => {
@@ -98,19 +112,11 @@ export function RemotionStage({
 
   return (
     <div ref={ref} role="img" aria-label={label} className={`stage ${className ?? ""}`}>
-      <div className="relative w-full" style={{ aspectRatio: `${width} / ${height}` }}>
+      <div ref={box} className="relative w-full" style={{ aspectRatio: `${width} / ${height}` }}>
         {showPoster ? (
-          <svg
-            viewBox={`0 0 ${width} ${height}`}
-            className="absolute inset-0 h-full w-full"
-            style={{ visibility: ready ? "hidden" : "visible" }}
-            aria-hidden="true"
-            focusable="false"
-          >
-            <foreignObject width={width} height={height}>
-              {POSTERS[name]()}
-            </foreignObject>
-          </svg>
+          <div aria-hidden="true" className="absolute inset-0 overflow-hidden" style={{ visibility: ready || scale === null ? "hidden" : "visible" }}>
+            <div style={{ width, height, transformOrigin: "0 0", transform: `scale(${scale ?? 1})` }}>{POSTERS[name]()}</div>
+          </div>
         ) : null}
         {mountPlayer ? (
           <div className="absolute inset-0">
