@@ -16,17 +16,16 @@ export const nav = {
   links: [
     { href: "#como-funciona", label: "Cómo funciona" },
     { href: "#casos", label: "Casos" },
-    { href: "#garantias", label: "Garantías" },
-    { href: "#planes", label: "Planes" },
+    { href: "#arranque", label: "Cómo arrancás" },
     { href: "#faq", label: "Preguntas" },
   ],
   cta: "Pedir una demo",
 };
 
 export const hero = {
-  title: "Ningún lead se enfría. Tu equipo habla solo con quien va a comprar.",
+  title: "Respondé cada consulta en segundos. Deja de perder ventas.",
   /** El mismo título partido para dar énfasis visual: [normal, atenuado, destacado, atenuado]. */
-  titleParts: ["Ningún lead se enfría.", " Tu equipo habla solo con ", "quien va a comprar", "."],
+  titleParts: ["Respondé cada consulta en segundos.", " Deja de perder ", "ventas", "."],
   subtitle:
     "El CRM con IA que responde cada consulta, la califica y entrega a tus vendedores leads listos para cerrar.",
   primaryCta: "Pedir una demo",
@@ -44,7 +43,7 @@ export const hero = {
 
 export const steps = {
   title: "De la primera consulta a la visita, sin trabajo manual.",
-  subtitle: "Cada consulta sigue el mismo camino. Tocá un paso para verlo en la animación.",
+  subtitle: "Cada consulta sigue el mismo camino.",
   posterLabel:
     "Flujo en cuatro pasos: llega el lead, la IA conversa, se clasifica y registra, tu vendedor cierra.",
   items: [
@@ -122,79 +121,35 @@ export const screen = {
 };
 
 export const includes = {
-  title: "Todo lo que incluye.",
+  title: "Todo en un solo lugar.",
   subtitle: "Un CRM pensado para el día a día de una concesionaria.",
   items: [
     {
       title: "Conversación con IA, 24 horas",
-      text: "Atiende cada consulta al instante, incluso de noche y en fin de semana, con un tono natural y adaptado a tu concesionaria.",
     },
     {
       title: "Clasificación automática",
-      text: "Cada lead se etiqueta por interés, urgencia y temperatura sin que nadie lo cargue a mano.",
     },
     {
       title: "Cualificación de leads",
-      text: "Separa a quien está listo para comprar de quien solo está mirando, con preguntas hechas en la conversación.",
     },
     {
       title: "Registro de datos",
-      text: "Modelo, forma de pago, permuta y presupuesto quedan en la ficha, extraídos directamente del chat.",
     },
     {
       title: "Multi-concesionaria",
-      text: "Una sola plataforma para varias sucursales o marcas, con la información de cada una bien separada.",
     },
-  ],
-};
-
-export const commitment = {
-  title: "Lo que te garantizamos",
-  items: [
-    { title: "Ninguna consulta sin respuesta", text: "El asistente atiende todas las conversaciones, de día y de noche." },
-    { title: "Tu equipo siempre tiene el control", text: "La IA no reemplaza a nadie: el vendedor retoma la conversación cuando el lead está listo." },
-    { title: "Datos separados por sucursal", text: "Cada sucursal o marca trabaja con su propia información." },
-    { title: "Implementación acompañada", text: "Conectamos tu WhatsApp Business y te acompañamos en toda la configuración inicial." },
   ],
 };
 
 export const onboarding = {
   title: "Cómo arrancás",
+  posterLabel:
+    "Tres pasos para empezar: demo con tu caso, conexión de tu WhatsApp y llegada de leads calificados a tu CRM.",
   items: [
-    { title: "Demo con tu caso", text: "Te mostramos GoConcesionaria funcionando con el caso de tu concesionaria." },
-    { title: "Conectamos tu WhatsApp", text: "Conectamos tu número de WhatsApp Business y configuramos el asistente con el tono de tu marca." },
-    { title: "Empezás a recibir leads calificados", text: "Tu asistente empieza a atender consultas y tus vendedores reciben leads listos para cerrar." },
-  ],
-};
-
-export const plans = {
-  title: "Un plan para cada tamaño de concesionaria.",
-  subtitle: "Elegí según el tamaño de tu operación. En la demo te ayudamos a definirlo.",
-  items: [
-    {
-      name: "Inicial",
-      description: "Para una sola sucursal que quiere dejar de perder consultas.",
-      price: "A medida" /* reemplazar por el precio real, ej. "$XX / mes" */,
-      features: ["Asistente de IA por WhatsApp", "Registro y clasificación de leads", "Pipeline de ventas"],
-      cta: "Consultar",
-      featured: false,
-    },
-    {
-      name: "Concesionaria",
-      description: "Para equipos de ventas que quieren automatizar la cualificación de punta a punta.",
-      price: "A medida" /* reemplazar por el precio real, ej. "$XX / mes" */,
-      features: ["Todo lo de Inicial", "Cualificación avanzada de leads", "Varios usuarios y vendedores", "Soporte prioritario"],
-      cta: "Pedir una demo",
-      featured: true,
-    },
-    {
-      name: "Grupo",
-      description: "Para grupos con varias sucursales o marcas bajo una misma plataforma.",
-      price: "A medida" /* reemplazar por el precio real, ej. "$XX / mes" */,
-      features: ["Todo lo de Concesionaria", "Multi-sucursal con datos separados", "Configuración personalizada"],
-      cta: "Hablar con ventas",
-      featured: false,
-    },
+    { title: "Demo con tu caso" },
+    { title: "Conectamos tu WhatsApp" },
+    { title: "Empezás a recibir leads calificados" },
   ],
 };
 
@@ -261,15 +216,6 @@ export const whatsapp = {
   link(message: string = WA_MESSAGE) {
     return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
   },
-};
-
-export const problems = {
-  title: "¿Te suena?",
-  items: [
-    { title: "Consultas que se enfrían", text: "Entran de noche o en fin de semana y, cuando alguien contesta, el cliente ya compró en otro lado." },
-    { title: "Tiempo con curiosos", text: "Tu equipo atiende a todos por igual y no sabe cuál es una venta real hasta haber hablado un rato." },
-    { title: "Datos por todos lados", text: "Cada vendedor anota a su manera, en su WhatsApp o en una planilla, y nadie sabe en qué quedó cada lead." },
-  ],
 };
 
 export const cta = {

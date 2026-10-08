@@ -5,6 +5,9 @@ import { FPS, color, font, loopFade } from "./tokens";
 /** Todas las composiciones miden 800 px de ancho y usan tipografía grande para leerse bien en móvil. */
 export const STAGE_W = 800;
 
+/** Margen alrededor de cada escena: los brillos y anillos que se salen del contenido no se recortan. */
+export const STAGE_PAD = 48;
+
 export const SOFT = { damping: 20, stiffness: 90, mass: 1 };
 export const SNAP = { damping: 14, stiffness: 170, mass: 0.7 };
 export const BOUNCE = { damping: 9, stiffness: 180, mass: 0.6 };
@@ -37,16 +40,16 @@ export function Scene({
   return (
     <div
       style={{
-        position: "relative",
-        width,
-        height,
+        width: width + STAGE_PAD * 2,
+        height: height + STAGE_PAD * 2,
+        padding: STAGE_PAD,
         fontFamily: font.body,
         color: color.fg,
         opacity: loopFade(frame, duration),
         boxSizing: "border-box",
       }}
     >
-      {children}
+      <div style={{ position: "relative", width, height }}>{children}</div>
     </div>
   );
 }

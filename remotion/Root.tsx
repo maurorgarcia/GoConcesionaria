@@ -1,7 +1,7 @@
 import React from "react";
 import { Composition } from "remotion";
 import { loadFont as loadGeist } from "@remotion/google-fonts/Geist";
-import { Branches, FlowSteps, LeadQualify, NightLeads, PipelineLive } from "./compositions";
+import { Branches, FlowSteps, FlowStepsH, LeadQualify, NightLeads, Onboarding, PipelineLive } from "./compositions";
 import { SPECS } from "./specs";
 import { FPS } from "./tokens";
 
@@ -9,7 +9,7 @@ import { FPS } from "./tokens";
 // las fuentes llegan por next/font (variable --font-geist).
 loadGeist("normal", { weights: ["400", "500", "600", "700"] });
 
-const comps = { LeadQualify, FlowSteps, NightLeads, PipelineLive, Branches } as const;
+const comps = { LeadQualify, FlowSteps, FlowStepsH, NightLeads, Onboarding, PipelineLive, Branches } as const;
 
 export const RemotionRoot: React.FC = () => (
   <>

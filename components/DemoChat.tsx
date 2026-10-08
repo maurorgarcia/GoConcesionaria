@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { demo } from "@/content/landing";
 import { Reveal } from "./Reveal";
 import { container, SectionHeading, sectionY } from "./ui";
+import { SectionBg } from "./SectionBg";
 
 type Msg = { from: "client" | "ai"; text: string };
 type Temp = "Frío" | "Tibio" | "Caliente";
@@ -54,7 +55,8 @@ export function DemoChat() {
   }
 
   return (
-    <section id="probalo" aria-labelledby="probalo-title" className={`${sectionY} fx fx-a pat-grid defer-render`}>
+    <section id="probalo" aria-labelledby="probalo-title" className={`${sectionY} relative isolate`}>
+      <SectionBg kind="mesh" />
       <div className={`${container} flex flex-col gap-10`}>
         <Reveal>
           <SectionHeading id="probalo-title" title={demo.title} subtitle={demo.subtitle} />

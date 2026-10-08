@@ -6,6 +6,7 @@ import { BranchesView } from "@/remotion/Branches";
 import { FlowStepsView } from "@/remotion/FlowSteps";
 import { LeadQualifyView } from "@/remotion/LeadQualify";
 import { NightLeadsView } from "@/remotion/NightLeads";
+import { OnboardingView } from "@/remotion/Onboarding";
 import { PipelineLiveView } from "@/remotion/PipelineLive";
 import { SPECS, type CompositionName } from "@/remotion/specs";
 
@@ -16,6 +17,8 @@ const StagePlayer = dynamic(() => import("@/remotion/players"), { ssr: false });
 const POSTERS: Record<CompositionName, () => ReactNode> = {
   LeadQualify: () => <LeadQualifyView frame={SPECS.LeadQualify.poster} />,
   FlowSteps: () => <FlowStepsView frame={SPECS.FlowSteps.poster} />,
+  FlowStepsH: () => <FlowStepsView frame={SPECS.FlowStepsH.poster} horizontal />,
+  Onboarding: () => <OnboardingView frame={SPECS.Onboarding.poster} />,
   NightLeads: () => <NightLeadsView frame={SPECS.NightLeads.poster} />,
   PipelineLive: () => <PipelineLiveView frame={SPECS.PipelineLive.poster} />,
   Branches: () => <BranchesView frame={SPECS.Branches.poster} />,

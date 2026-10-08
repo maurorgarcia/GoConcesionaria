@@ -19,7 +19,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 24px;
+  scroll-padding-top: 68px;
   background: var(--color-bg);
 }
 
@@ -104,62 +104,11 @@ details[open] .faq-body { animation: faq-open 0.3s ease; }
 }
 
 
-/* Fondos con efecto: dos resplandores de marca (lima y verde WhatsApp), distintos por sección. Estático. */
-.fx { position: relative; isolation: isolate; }
-.fx::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    radial-gradient(55% 60% at var(--fx-x, 90%) var(--fx-y, 0%), var(--fx-c, rgba(204, 255, 0, 0.08)), transparent 70%),
-    radial-gradient(45% 50% at var(--fx-x2, 5%) var(--fx-y2, 100%), var(--fx-c2, rgba(204, 255, 0, 0.06)), transparent 70%);
-}
-.fx-a { --fx-x: 92%; --fx-y: 0%; --fx-x2: 4%; --fx-y2: 100%; }
-.fx-b { --fx-x: 6%; --fx-y: 0%; --fx-x2: 96%; --fx-y2: 100%; }
-.fx-c { --fx-x: 50%; --fx-y: 100%; --fx-c: rgba(204, 255, 0, 0.1); --fx-x2: 50%; --fx-y2: 0%; --fx-c2: rgba(204, 255, 0, 0.04); }
-.fx-hero { --fx-x: 80%; --fx-y: 25%; --fx-c: rgba(204, 255, 0, 0.12); --fx-x2: 0%; --fx-y2: 90%; --fx-c2: rgba(204, 255, 0, 0.08); }
-
 @keyframes dot { 0%, 80%, 100% { opacity: 0.25; } 40% { opacity: 1; } }
 .typing i { animation: dot 1.2s infinite; }
 .typing i:nth-child(2) { animation-delay: 0.15s; }
 .typing i:nth-child(3) { animation-delay: 0.3s; }
 @media (prefers-reduced-motion: reduce) { .typing i { animation: none; opacity: 0.7; } }
 
-/* Separación visible entre secciones: fondo alterno un punto más claro y línea superior */
+/* Línea de separación entre secciones */
 main > section + section { border-top: 1px solid rgba(245, 245, 245, 0.12); }
-main > section:nth-of-type(even) { background-color: #121212; }
-
-/* Textura de fondo por sección (solo blanco y lima, estática): cuadrícula, diagonales, puntos y anillos */
-.fx::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background: var(--fx-pat, none);
-  -webkit-mask-image: var(--fx-mask, linear-gradient(to bottom, #000 0%, #000 60%, transparent 100%));
-  mask-image: var(--fx-mask, linear-gradient(to bottom, #000 0%, #000 60%, transparent 100%));
-}
-.pat-grid {
-  --fx-pat:
-    linear-gradient(to right, rgba(245, 245, 245, 0.08) 1px, transparent 1px) 0 0 / 64px 64px,
-    linear-gradient(to bottom, rgba(245, 245, 245, 0.08) 1px, transparent 1px) 0 0 / 64px 64px;
-}
-.pat-diag {
-  --fx-pat: repeating-linear-gradient(135deg, rgba(245, 245, 245, 0.07) 0 1px, transparent 1px 22px);
-  --fx-mask: linear-gradient(100deg, #000 0%, transparent 70%);
-}
-.pat-dots {
-  --fx-pat: radial-gradient(rgba(204, 255, 0, 0.22) 1.2px, transparent 1.6px) 0 0 / 26px 26px;
-  --fx-mask: radial-gradient(70% 90% at 100% 0%, #000 0%, transparent 75%);
-}
-.pat-rings {
-  --fx-pat: repeating-radial-gradient(circle at 100% 100%, rgba(245, 245, 245, 0.09) 0 1px, transparent 1px 46px);
-  --fx-mask: radial-gradient(80% 100% at 100% 100%, #000 0%, transparent 80%);
-}
-.pat-rings-l {
-  --fx-pat: repeating-radial-gradient(circle at 0% 0%, rgba(204, 255, 0, 0.1) 0 1px, transparent 1px 46px);
-  --fx-mask: radial-gradient(80% 100% at 0% 0%, #000 0%, transparent 80%);
-}

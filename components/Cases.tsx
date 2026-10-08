@@ -5,6 +5,7 @@ import { stories } from "@/content/landing";
 import { RemotionStage } from "./RemotionStage";
 import { Reveal } from "./Reveal";
 import { Check, container, panelNeutral, panelPad, SectionHeading, sectionY } from "./ui";
+import { SectionBg } from "./SectionBg";
 
 /** Tres casos en pestañas: una sola animación a la vez (menos scroll y menos carga). */
 export function Cases() {
@@ -22,7 +23,8 @@ export function Cases() {
   }
 
   return (
-    <section id="casos" aria-labelledby="casos-title" className={`${sectionY} fx fx-a pat-rings`}>
+    <section id="casos" aria-labelledby="casos-title" className={`${sectionY} relative isolate`}>
+      <SectionBg kind="stars" />
       <div className={container}>
       <Reveal className={`${panelNeutral} ${panelPad} flex flex-col gap-8`}>
         <div className="flex flex-col items-center gap-6">

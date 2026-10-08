@@ -8,6 +8,12 @@ export const FLOW_H = 940;
 export const FLOW_DURATION = 8 * FPS;
 export const FLOW_POSTER = 205;
 
+/** Versión horizontal (pantallas grandes): los cuatro pasos en fila. */
+export const FLOWH_W = 1200;
+export const FLOWH_H = 380;
+const COL = 300;
+const H_X = 10;
+
 const NODE = 104;
 const NODE_X = 20;
 const ROW = 226;
@@ -17,7 +23,7 @@ const LINE_END = 176;
 
 const STEPS = ["Llega el lead", "La IA conversa", "Se clasifica y registra", "Tu vendedor cierra"];
 
-const center = (i: number) => ({ x: NODE_X + NODE / 2, y: TOP + NODE / 2 + i * ROW });
+const center = (i: number, h = false) => (h ? { x: H_X + NODE / 2 + i * COL, y: TOP + NODE / 2 } : { x: NODE_X + NODE / 2, y: TOP + NODE / 2 + i * ROW });
 const litAt = (i: number) => LINE_START + (i / (STEPS.length - 1)) * (LINE_END - LINE_START);
 
 /** Frame en el que se enciende el paso i (para saltar a él desde la página). */
@@ -52,21 +58,24 @@ const bubble = (ai: boolean): React.CSSProperties => ({
   maxWidth: 520,
 });
 
-function Visual({ i, frame, start }: { i: number; frame: number; start: number }) {
+const HCOL = COL - 36;
+
+function Visual({ i, frame, start, h = false }: { i: number; frame: number; start: number; h?: boolean }) {
+  const bub = (ai: boolean): React.CSSProperties => ({ ...bubble(ai), ...(h ? { maxWidth: HCOL, fontSize: 25 } : {}) });
   const p = pop(frame, start);
   const wrap: React.CSSProperties = { opacity: clamp(p * 1.6), transform: `translateY(${(1 - p) * 16}px)` };
-  if (i === 0) return <div style={{ ...wrap, ...bubble(false) }}>Hola, vi la pickup 4x4 2022 en su web.</div>;
+  if (i === 0) return <div style={{ ...wrap, ...bub(false) }}>Hola, vi la pickup 4x4 2022 en su web.</div>;
   if (i === 1) {
     const typing = frame < start + 30;
     return typing ? (
-      <div style={{ ...wrap, ...bubble(true), display: "flex", gap: 9, padding: "24px 28px", width: "fit-content" }}>
+      <div style={{ ...wrap, ...bub(true), display: "flex", gap: 9, padding: "24px 28px", width: "fit-content" }}>
         {[0, 1, 2].map((k) => {
           const w = Math.max(0, Math.sin((frame - k * 4) / 4.5));
           return <span key={k} style={{ width: 13, height: 13, borderRadius: "50%", background: color.muted, opacity: 0.45 + 0.55 * w, transform: `translateY(${-5 * w}px)` }} />;
         })}
       </div>
     ) : (
-      <div style={{ ...bubble(true), opacity: clamp(pop(frame, start + 30) * 1.6), transform: `translateY(${(1 - pop(frame, start + 30)) * 12}px)` }}>
+      <div style={{ ...bub(true), opacity: clamp(pop(frame, start + 30) * 1.6), transform: `translateY(${(1 - pop(frame, start + 30)) * 12}px)` }}>
         ¿La buscas para financiar o pagarías de contado?
       </div>
     );
@@ -78,16 +87,16 @@ function Visual({ i, frame, start }: { i: number; frame: number; start: number }
       { t: "Caliente", hot: true },
     ];
     return (
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 10, maxWidth: h ? HCOL : undefined }}>
         {chips.map((c, k) => {
           const q = pop(frame, start + k * 9, BOUNCE);
           return (
             <span
               key={c.t}
               style={{
-                padding: "10px 24px",
+                padding: h ? "8px 18px" : "10px 24px",
                 borderRadius: 999,
-                fontSize: 27,
+                fontSize: h ? 23 : 27,
                 fontWeight: 600,
                 background: c.hot ? color.accent : color.chip,
                 color: c.hot ? color.bg : color.fg,
@@ -103,9 +112,9 @@ function Visual({ i, frame, start }: { i: number; frame: number; start: number }
     );
   }
   return (
-    <div style={{ ...wrap, display: "flex", alignItems: "center", gap: 20 }}>
-      <Avatar label="JP" size={74} accent />
-      <div style={{ display: "flex", flexDirection: "column", fontSize: 28, lineHeight: 1.3 }}>
+    <div style={{ ...wrap, display: "flex", alignItems: "center", gap: h ? 14 : 20 }}>
+      <Avatar label="JP" size={h ? 60 : 74} accent />
+      <div style={{ display: "flex", flexDirection: "column", fontSize: h ? 24 : 28, lineHeight: 1.3 }}>
         <span style={{ fontWeight: 600 }}>Lead asignado</span>
         <span style={{ color: color.muted }}>con toda la conversación</span>
       </div>
@@ -114,22 +123,33 @@ function Visual({ i, frame, start }: { i: number; frame: number; start: number }
   );
 }
 
-export function FlowStepsView({ frame }: { frame: number }) {
+export function FlowStepsView({ frame, horizontal = false }: { frame: number; horizontal?: boolean }) {
+  const h = horizontal;
   const p = interpolate(frame, [LINE_START, LINE_END], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-  const first = center(0);
-  const last = center(STEPS.length - 1);
+  const first = center(0, h);
+  const last = center(STEPS.length - 1, h);
+  const dotX = first.x + (last.x - first.x) * p;
   const dotY = first.y + (last.y - first.y) * p;
   const dotOpacity = interpolate(frame, [LINE_START - 6, LINE_START, LINE_END, LINE_END + 14], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   const glow = "color-mix(in srgb, var(--color-accent, #CCFF00) 50%, transparent)";
 
   return (
-    <Scene width={FLOW_W} height={FLOW_H} frame={frame} duration={FLOW_DURATION}>
+    <Scene width={h ? FLOWH_W : FLOW_W} height={h ? FLOWH_H : FLOW_H} frame={frame} duration={FLOW_DURATION}>
       {/* línea base y línea que se dibuja */}
-      <div style={{ position: "absolute", left: first.x - 2, top: first.y, width: 4, height: last.y - first.y, background: color.line, borderRadius: 4 }} />
-      <div style={{ position: "absolute", left: first.x - 2, top: first.y, width: 4, height: (last.y - first.y) * p, background: color.accent, borderRadius: 4 }} />
+      {h ? (
+        <>
+          <div style={{ position: "absolute", left: first.x, top: first.y - 2, width: last.x - first.x, height: 4, background: color.line, borderRadius: 4 }} />
+          <div style={{ position: "absolute", left: first.x, top: first.y - 2, width: (last.x - first.x) * p, height: 4, background: color.accent, borderRadius: 4 }} />
+        </>
+      ) : (
+        <>
+          <div style={{ position: "absolute", left: first.x - 2, top: first.y, width: 4, height: last.y - first.y, background: color.line, borderRadius: 4 }} />
+          <div style={{ position: "absolute", left: first.x - 2, top: first.y, width: 4, height: (last.y - first.y) * p, background: color.accent, borderRadius: 4 }} />
+        </>
+      )}
 
       {STEPS.map((label, i) => {
-        const c = center(i);
+        const c = center(i, h);
         const appear = pop(frame, i * 5);
         const at = litAt(i);
         const lit = frame < at ? 0 : pop(frame, at, BOUNCE);
@@ -146,16 +166,16 @@ export function FlowStepsView({ frame }: { frame: number }) {
                 <Icon>{ICONS[i]}</Icon>
               </div>
             </div>
-            <div style={{ position: "absolute", left: 170, top: c.y - 62, right: 0, opacity: clamp(appear * 1.5) }}>
-              <div style={{ fontFamily: font.display, fontWeight: 600, fontSize: 38, letterSpacing: "-0.02em", color: lit > 0.5 ? color.fg : color.muted }}>{label}</div>
+            <div style={h ? { position: "absolute", left: c.x - NODE / 2, top: TOP + NODE + 22, width: HCOL, opacity: clamp(appear * 1.5) } : { position: "absolute", left: 170, top: c.y - 62, right: 0, opacity: clamp(appear * 1.5) }}>
+              <div style={{ fontFamily: font.display, fontWeight: 600, fontSize: h ? 32 : 38, lineHeight: 1.1, letterSpacing: "-0.02em", color: lit > 0.5 ? color.fg : color.muted }}>{label}</div>
             </div>
-            <div style={{ position: "absolute", left: 170, top: c.y - 4, right: 0, minHeight: 96 }}>{frame >= at + 4 ? <Visual i={i} frame={frame} start={at + 4} /> : null}</div>
+            <div style={h ? { position: "absolute", left: c.x - NODE / 2, top: TOP + NODE + 118, width: HCOL } : { position: "absolute", left: 170, top: c.y - 4, right: 0, minHeight: 96 }}>{frame >= at + 4 ? <Visual i={i} frame={frame} start={at + 4} h={h} /> : null}</div>
           </React.Fragment>
         );
       })}
 
       {/* punto de luz */}
-      <div style={{ position: "absolute", left: first.x - 14, top: dotY - 14, width: 28, height: 28, borderRadius: "50%", background: color.fg, boxShadow: `0 0 0 8px ${glow}`, opacity: dotOpacity }}>
+      <div style={{ position: "absolute", left: (h ? dotX : first.x) - 14, top: (h ? first.y : dotY) - 14, width: 28, height: 28, borderRadius: "50%", background: color.fg, boxShadow: `0 0 0 8px ${glow}`, opacity: dotOpacity }}>
         <div style={{ position: "absolute", inset: -40, borderRadius: "50%", background: `radial-gradient(circle, ${glow} 0%, transparent 70%)` }} />
       </div>
     </Scene>

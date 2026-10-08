@@ -2,11 +2,11 @@
 
 import React, { useEffect, useRef } from "react";
 import { Player, type PlayerRef } from "@remotion/player";
-import { Branches, FlowSteps, LeadQualify, NightLeads, PipelineLive } from "./compositions";
+import { Branches, FlowSteps, FlowStepsH, LeadQualify, NightLeads, Onboarding, PipelineLive } from "./compositions";
 import { SPECS, type CompositionName } from "./specs";
 import { FPS } from "./tokens";
 
-const COMPONENTS = { LeadQualify, FlowSteps, NightLeads, PipelineLive, Branches } as const;
+const COMPONENTS = { LeadQualify, FlowSteps, FlowStepsH, NightLeads, Onboarding, PipelineLive, Branches } as const;
 
 /**
  * Se carga con dynamic import (ssr: false) desde RemotionStage.

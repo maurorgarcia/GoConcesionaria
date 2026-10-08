@@ -1,10 +1,12 @@
 import { faq, whatsapp } from "@/content/landing";
 import { Reveal } from "./Reveal";
 import { Arrow, btnGhost, container, sectionY } from "./ui";
+import { SectionBg } from "./SectionBg";
 
 export function Faq() {
   return (
-    <section id="faq" aria-labelledby="faq-title" className={`${sectionY} fx fx-b pat-grid defer-render`}>
+    <section id="faq" aria-labelledby="faq-title" className={`${sectionY} relative isolate`}>
+      <SectionBg kind="dots" />
       <div className={`${container} flex flex-col items-center gap-8`}>
         <Reveal className="flex max-w-[640px] flex-col items-center gap-3 text-center">
           <h2 id="faq-title" className="text-[clamp(28px,3.6vw,44px)] font-semibold leading-[1.08]">

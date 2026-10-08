@@ -7,15 +7,15 @@ const linkCls = "text-[15px] text-muted transition-colors hover:text-fg";
 export function Footer() {
   return (
     <footer className="border-t border-[rgba(245,245,245,0.12)] bg-bg">
-      <div className={`${container} grid grid-cols-2 gap-x-6 gap-y-10 py-10 md:grid-cols-[1.6fr_1fr_1fr] md:gap-x-16 md:py-14`}>
-        <div className="col-span-2 flex flex-col gap-4 md:col-span-1">
-          <Image src="/godreamai-white.png" alt="GODREAMAI" width={584} height={302} className="h-12 w-auto self-start" />
+      <div className={`${container} grid grid-cols-2 gap-x-6 gap-y-10 py-10 text-center md:grid-cols-[1.6fr_1fr_1fr] md:text-left md:gap-x-16 md:py-14`}>
+        <div className="col-span-2 flex flex-col items-center gap-4 md:col-span-1 md:items-start">
+          <Image src="/godreamai-white.png" alt="GODREAMAI" width={584} height={302} className="h-12 w-auto" />
           <p className="max-w-[340px] text-[15px] text-muted">{footer.tagline}</p>
           <p className="text-[14.5px] text-muted">
             <span className="font-semibold text-fg">GoConcesionaria</span>, un producto de GODREAMAI.
           </p>
         </div>
-        <nav aria-label="Secciones" className="flex flex-col gap-3">
+        <nav aria-label="Secciones" className="col-span-2 flex flex-col items-center gap-3 sm:col-span-1 md:items-start">
           <h2 className="text-[15px] font-semibold">Producto</h2>
           {nav.links.map((l) => (
             <a key={l.href} href={l.href} className={`${linkCls} w-fit`}>
@@ -23,7 +23,7 @@ export function Footer() {
             </a>
           ))}
         </nav>
-        <div className="col-span-2 flex flex-col gap-3 sm:col-span-1">
+        <div className="col-span-2 flex flex-col items-center gap-3 sm:col-span-1 md:items-start">
           <h2 className="text-[15px] font-semibold">Contacto</h2>
           <a href={whatsapp.link()} target="_blank" rel="noopener noreferrer" className={`${linkCls} flex w-fit items-center gap-2.5`}>
             <WhatsAppIcon />
@@ -44,7 +44,7 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-line">
-        <p className={`${container} py-6 pb-8 text-sm text-muted`}>{footer.copyright}</p>
+        <p className={`${container} py-6 pb-8 text-center text-sm text-muted md:text-left`}>{footer.copyright}</p>
       </div>
     </footer>
   );

@@ -1,11 +1,13 @@
 import { hero, whatsapp } from "@/content/landing";
 import { RemotionStage } from "./RemotionStage";
 import { Arrow, btnGhost, btnPrimary, Check, container } from "./ui";
+import { SectionBg } from "./SectionBg";
 
 export function Hero() {
   const [first, mid, emphasis, end] = hero.titleParts;
   return (
-    <section id="inicio" aria-labelledby="hero-title" className="fx fx-hero pat-grid">
+    <section id="inicio" aria-labelledby="hero-title" className="relative isolate">
+      <SectionBg kind="particles" />
       <div className={`${container} grid items-center gap-10 pb-12 pt-8 md:pt-14 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14 lg:pb-16`}>
         <div className="flex min-w-0 flex-col gap-6">
           <h1 id="hero-title" className="text-[clamp(38px,5.2vw,68px)] font-semibold leading-[1]">
@@ -36,7 +38,7 @@ export function Hero() {
           </ul>
         </div>
         <div className="flex flex-col gap-2">
-          <RemotionStage name="LeadQualify" label={hero.posterLabel} eager className="mx-auto w-full max-w-[440px] lg:ml-auto" />
+          <RemotionStage name="LeadQualify" label={hero.posterLabel} eager className="mx-auto w-full max-w-[400px] lg:ml-auto" />
           <p className="mx-auto w-full max-w-[440px] text-[13px] text-muted lg:ml-auto">{hero.caption}</p>
         </div>
       </div>

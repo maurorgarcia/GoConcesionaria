@@ -8,7 +8,7 @@ import { renderMedia, selectComposition } from "@remotion/renderer";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const outDir = path.join(root, "public", "videos");
-const ALL = ["LeadQualify", "FlowSteps", "NightLeads", "PipelineLive", "Branches"];
+const ALL = ["LeadQualify", "FlowSteps", "FlowStepsH", "Onboarding", "NightLeads", "PipelineLive", "Branches"];
 const ids = process.argv.slice(2).length ? process.argv.slice(2) : ALL;
 
 const formats = [
