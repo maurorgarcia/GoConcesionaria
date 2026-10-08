@@ -17,7 +17,7 @@ export const panelGreen = "";
 export const panelPad = "";
 
 /** Espacio vertical entre bloques de la página. */
-export const sectionY = "py-10 md:py-14";
+export const sectionY = "py-14 md:py-20";
 
 export function WhatsAppIcon({ size = 20, className = "" }: { size?: number; className?: string }) {
   return (

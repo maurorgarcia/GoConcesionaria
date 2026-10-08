@@ -9,7 +9,9 @@ export function Footer() {
     <footer className="border-t border-[rgba(245,245,245,0.12)] bg-bg">
       <div className={`${container} grid grid-cols-2 gap-x-6 gap-y-10 py-10 text-center md:grid-cols-[1.6fr_1fr_1fr] md:text-left md:gap-x-16 md:py-14`}>
         <div className="col-span-2 flex flex-col items-center gap-4 md:col-span-1 md:items-start">
-          <Image src="/godreamai-white.png" alt="GODREAMAI" width={584} height={302} className="h-8 w-auto" />
+          <a href="https://www.godreamai.com/" target="_blank" rel="noopener noreferrer" aria-label="GODREAMAI, ir al sitio" className="inline-flex">
+            <Image src="/godreamai-white.png" alt="GODREAMAI" width={584} height={302} className="h-8 w-auto" />
+          </a>
           <p className="max-w-[340px] text-[15px] text-muted">{footer.tagline}</p>
           <p className="text-[14.5px] text-muted">
             <span className="font-semibold text-fg">GoConcesionaria</span>, un producto de GODREAMAI.
