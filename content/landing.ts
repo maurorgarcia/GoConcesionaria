@@ -5,7 +5,7 @@
 
 export const site = {
   name: "GoConcesionaria",
-  title: "GoConcesionaria | CRM con inteligencia artificial para concesionarias",
+  title: "GoConcesionaria | CRM con IA",
   description:
     "La IA responde cada consulta en segundos, registra los datos y entrega a tus vendedores leads ya calificados. Un producto de GODREAMAI.",
   maker: "GODREAMAI",
