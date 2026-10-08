@@ -29,7 +29,7 @@ export function Cases() {
       <Reveal className={`${panelNeutral} ${panelPad} flex flex-col gap-8`}>
         <div className="flex flex-col items-center gap-6">
           <SectionHeading id="casos-title" title={stories.title} subtitle={stories.subtitle} />
-          <div role="tablist" aria-label="Casos" onKeyDown={onKeyDown} className="flex max-w-full gap-2 overflow-x-auto pb-1">
+          <div role="tablist" aria-label="Casos" onKeyDown={onKeyDown} className="flex max-w-full flex-wrap justify-center gap-2">
             {stories.items.map((it, i) => (
               <button
                 key={it.id}
@@ -51,10 +51,10 @@ export function Cases() {
         </div>
 
         <div role="tabpanel" id="caso-panel" aria-labelledby={`caso-tab-${s.id}`} className="grid items-center gap-8 lg:grid-cols-[1fr_0.8fr] lg:gap-14">
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col items-center gap-5 text-center lg:items-start lg:text-left">
             <h3 className="text-[clamp(24px,2.8vw,34px)] font-semibold leading-[1.1]">{s.title}</h3>
             <p className="max-w-[520px] text-[17px] text-muted">{s.text}</p>
-            <ul className="flex flex-col gap-3">
+            <ul className="flex flex-col gap-3 text-left">
               {s.bullets.map((b) => (
                 <li key={b} className="flex items-start gap-3 text-[16.5px]">
                   <Check className="mt-0.5 shrink-0" />
@@ -65,7 +65,7 @@ export function Cases() {
           </div>
           <div className="flex flex-col gap-2">
             <RemotionStage key={s.id} name={s.anim} label={s.label} className="mx-auto w-full max-w-[380px]" />
-            <p className="mx-auto w-full max-w-[380px] text-[13px] text-muted">{s.caption}</p>
+            <p className="mx-auto w-full max-w-[380px] text-center text-[13px] text-muted lg:text-left">{s.caption}</p>
           </div>
         </div>
       </Reveal>

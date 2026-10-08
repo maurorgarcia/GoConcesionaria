@@ -9,7 +9,7 @@ export function Hero() {
     <section id="inicio" aria-labelledby="hero-title" className="relative isolate">
       <SectionBg kind="particles" />
       <div className={`${container} grid items-center gap-10 pb-12 pt-8 md:pt-14 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14 lg:pb-16`}>
-        <div className="flex min-w-0 flex-col gap-6">
+        <div className="flex min-w-0 flex-col items-center gap-6 text-center lg:items-start lg:text-left">
           <h1 id="hero-title" className="text-[clamp(38px,5.2vw,68px)] font-semibold leading-[1]">
             {first}
             <span className="text-muted">
@@ -19,7 +19,7 @@ export function Hero() {
             </span>
           </h1>
           <p className="max-w-[560px] text-[18px] text-muted">{hero.subtitle}</p>
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex flex-wrap items-center justify-center gap-3 lg:justify-start">
             <a href={whatsapp.link()} target="_blank" rel="noopener noreferrer" className={`${btnPrimary} min-h-[52px] px-6 text-[16px]`}>
               {hero.primaryCta}
               <Arrow />
@@ -28,7 +28,7 @@ export function Hero() {
               {hero.secondaryCta}
             </a>
           </div>
-          <ul className="flex flex-wrap gap-x-5 gap-y-2 text-[15px] text-muted">
+          <ul className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-[15px] text-muted lg:justify-start">
             {hero.benefits.map((b) => (
               <li key={b.title} className="flex items-center gap-2">
                 <Check className="h-[18px] w-[18px]" />
@@ -39,7 +39,7 @@ export function Hero() {
         </div>
         <div className="flex flex-col gap-2">
           <RemotionStage name="LeadQualify" label={hero.posterLabel} eager className="mx-auto w-full max-w-[400px] lg:ml-auto" />
-          <p className="mx-auto w-full max-w-[440px] text-[13px] text-muted lg:ml-auto">{hero.caption}</p>
+          <p className="mx-auto w-full max-w-[440px] text-center text-[13px] text-muted lg:ml-auto lg:text-left">{hero.caption}</p>
         </div>
       </div>
     </section>
